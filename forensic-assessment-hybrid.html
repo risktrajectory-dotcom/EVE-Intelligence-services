@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forensic Case Assessment — EVE Intelligence</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Garamond', 'Cambria', serif;
+            background: linear-gradient(135deg, #fafaf8 0%, #ffffff 100%);
+            color: #2c2c2a;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e8e8e4;
+            padding: 28px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            color: #d62828;
+        }
+
+        .nav a {
+            color: #d62828;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .nav a:hover {
+            color: #b71c1c;
+        }
+
+        .hero {
+            max-width: 1000px;
+            margin: 80px auto 60px;
+            padding: 0 50px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 400;
+            line-height: 1.3;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+            color: #1e3a5f;
+        }
+
+        .hero .highlight {
+            color: #d62828;
+            font-weight: 600;
+        }
+
+        .hero p {
+            font-size: 16px;
+            color: #666660;
+            line-height: 1.8;
+            max-width: 650px;
+            margin: 0 auto;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .divider {
+            width: 60px;
+            height: 1px;
+            background: #d62828;
+            margin: 40px auto;
+        }
+
+        .section {
+            max-width: 1000px;
+            margin: 80px auto;
+            padding: 0 50px;
+        }
+
+        .section-title {
+            font-size: 42px;
+            font-weight: 400;
+            margin-bottom: 60px;
+            text-align: center;
+            letter-spacing: -0.5px;
+            color: #1e3a5f;
+        }
+
+        .section-title .highlight {
+            color: #d62828;
+            font-weight: 600;
+        }
+
+        /* Value Proposition */
+        .value-prop {
+            background: #ffffff;
+            border: 1px solid #e8e8e4;
+            border-radius: 6px;
+            padding: 45px 40px;
+            margin-bottom: 80px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .value-prop h3 {
+            font-size: 22px;
+            font-weight: 600;
+            color: #1e3a5f;
+            margin-bottom: 20px;
+        }
+
+        .value-prop p {
+            font-size: 14px;
+            color: #666660;
+            line-height: 1.8;
+            margin-bottom: 16px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .value-prop ul {
+            list-style: none;
+            columns: 2;
+            gap: 30px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .value-prop li {
+            font-size: 13px;
+            color: #666660;
+            margin-bottom: 12px;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .value-prop li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #d62828;
+            font-weight: 700;
+        }
+
+        /* Service Tiers */
+        .tiers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .tier {
+            background: #ffffff;
+            border: 1px solid #e8e8e4;
+            border-radius: 6px;
+            padding: 45px 35px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .tier:hover {
+            border-color: #d62828;
+            box-shadow: 0 4px 12px rgba(214, 40, 40, 0.1);
+        }
+
+        .tier-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1e3a5f;
+            margin-bottom: 14px;
+        }
+
+        .tier-price {
+            font-size: 42px;
+            font-weight: 700;
+            color: #d62828;
+            margin-bottom: 6px;
+        }
+
+        .tier-price-note {
+            font-size: 11px;
+            color: #999990;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .tier-description {
+            font-size: 13px;
+            color: #666660;
+            line-height: 1.7;
+            margin-bottom: 24px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .tier-features {
+            text-align: left;
+            margin-bottom: 32px;
+            list-style: none;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .tier-features li {
+            font-size: 12px;
+            color: #666660;
+            margin-bottom: 10px;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .tier-features li:before {
+            content: "•";
+            position: absolute;
+            left: 8px;
+            color: #d62828;
+            font-weight: 700;
+        }
+
+        .tier-cta {
+            display: inline-block;
+            background-color: #d62828;
+            color: #ffffff;
+            padding: 12px 35px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 12px;
+            letter-spacing: 0.8px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .tier-cta:hover {
+            background-color: #b71c1c;
+        }
+
+        /* Process */
+        .process {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .process-step {
+            text-align: center;
+            padding: 35px 25px;
+            background: #ffffff;
+            border: 1px solid #e8e8e4;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .process-step:hover {
+            border-color: #d62828;
+            box-shadow: 0 4px 12px rgba(214, 40, 40, 0.08);
+        }
+
+        .process-number {
+            font-size: 38px;
+            font-weight: 700;
+            color: #d62828;
+            margin-bottom: 12px;
+        }
+
+        .process-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e3a5f;
+            margin-bottom: 12px;
+        }
+
+        .process-description {
+            font-size: 12px;
+            color: #666660;
+            line-height: 1.6;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        /* CTA */
+        .cta-section {
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .cta-button-large {
+            display: inline-block;
+            background-color: #d62828;
+            color: #ffffff;
+            padding: 18px 60px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .cta-button-large:hover {
+            background-color: #b71c1c;
+        }
+
+        footer {
+            background-color: #ffffff;
+            padding: 50px 50px;
+            text-align: center;
+            border-top: 1px solid #e8e8e4;
+            margin-top: 100px;
+            color: #999990;
+            font-size: 12px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        footer a {
+            color: #d62828;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #b71c1c;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .hero {
+                padding: 0 24px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .section {
+                padding: 0 24px;
+            }
+
+            .tiers, .process {
+                grid-template-columns: 1fr;
+            }
+
+            .value-prop ul {
+                columns: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">EVE</div>
+        <nav class="nav">
+            <a href="homepage-hybrid.html">← Back to Home</a>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>Forensic <span class="highlight">Case Assessment</span></h1>
+        <p>Deep investigation of criminal cases. We examine evidence integrity, chain of custody, investigator methodology, and litigation defensibility.</p>
+    </div>
+
+    <div class="section">
+        <div class="divider"></div>
+
+        <div class="value-prop">
+            <h3>Why EVE for Case Assessment</h3>
+            <p>Criminal cases live or die on evidence credibility and procedural integrity. We bring systematic rigor:</p>
+            <ul>
+                <li>Evidence chain validation</li>
+                <li>Procedural gap identification</li>
+                <li>Investigator methodology review</li>
+                <li>Litigation defensibility analysis</li>
+                <li>Documentation of all findings</li>
+                <li>Expert-signed assessment</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">Service <span class="highlight">Options</span></h2>
+
+        <div class="tiers">
+            <div class="tier">
+                <div class="tier-name">Case Review</div>
+                <div class="tier-price">$4K</div>
+                <div class="tier-price-note">Flat fee</div>
+                <p class="tier-description">Focused assessment of specific procedural or evidentiary concerns.</p>
+                <ul class="tier-features">
+                    <li>Case document review</li>
+                    <li>Gap identification</li>
+                    <li>Written assessment</li>
+                    <li>Single officer review</li>
+                </ul>
+                <a href="intake-form.html" class="tier-cta">Start Intake</a>
+            </div>
+
+            <div class="tier">
+                <div class="tier-name">Full Assessment</div>
+                <div class="tier-price">$12K</div>
+                <div class="tier-price-note">Flat fee</div>
+                <p class="tier-description">Comprehensive investigation of case integrity, chain of custody, and investigator decisions.</p>
+                <ul class="tier-features">
+                    <li>Complete case audit</li>
+                    <li>Interview synthesis</li>
+                    <li>Evidence mapping</li>
+                    <li>Defensibility analysis</li>
+                    <li>Detailed findings report</li>
+                    <li>Multi-officer review</li>
+                </ul>
+                <a href="intake-form.html" class="tier-cta">Start Intake</a>
+            </div>
+
+            <div class="tier">
+                <div class="tier-name">Ongoing Retainer</div>
+                <div class="tier-price">$6.8K</div>
+                <div class="tier-price-note">Monthly</div>
+                <p class="tier-description">Rolling access to case assessment, investigator consultation, and procedural guidance.</p>
+                <ul class="tier-features">
+                    <li>Unlimited case intake</li>
+                    <li>Priority assessment</li>
+                    <li>Investigator consultation</li>
+                    <li>Procedural guidance</li>
+                    <li>Dedicated officer liaison</li>
+                    <li>Quarterly briefings</li>
+                </ul>
+                <a href="intake-form.html" class="tier-cta">Contact Sales</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">Our <span class="highlight">Process</span></h2>
+
+        <div class="process">
+            <div class="process-step">
+                <div class="process-number">1</div>
+                <div class="process-title">Intake</div>
+                <div class="process-description">Case submission and scoping. We establish scope, timeline, and defensibility priorities.</div>
+            </div>
+
+            <div class="process-step">
+                <div class="process-number">2</div>
+                <div class="process-title">Analysis</div>
+                <div class="process-description">Systematic forensic review. Document chain, interview consistency, evidence integrity, methodology.</div>
+            </div>
+
+            <div class="process-step">
+                <div class="process-number">3</div>
+                <div class="process-title">Mid-Point Check</div>
+                <div class="process-description">Early findings and emerging gaps. Direction clarification before final review.</div>
+            </div>
+
+            <div class="process-step">
+                <div class="process-number">4</div>
+                <div class="process-title">Delivery</div>
+                <div class="process-description">Signed assessment. Defensibility summary, gap analysis, and litigation readiness.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" id="contact">
+        <div class="cta-section">
+            <p style="font-size: 15px; color: #666660; margin-bottom: 40px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">Ready to submit a case? We'll schedule a scoping call within 48 hours.</p>
+            <a href="intake-form.html" class="cta-button-large">Start Intake Form</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>EVE Intelligence Inc. | Forensic Case Assessment</p>
+        <p style="margin-top: 12px; font-size: 11px;">Assessment and analysis only. Not legal advice. Findings subject to professional limitation and scope of engagement.</p>
+        <p style="margin-top: 20px;"><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+    </footer>
+</body>
+</html>
