@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forensic Case Assessment — EVE Intelligence</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #0a1628 0%, #0d1f3c 50%, #0a1628 100%);
+            color: #e0e8f0;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: rgba(10, 22, 40, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 200, 255, 0.2);
+            padding: 24px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #00d4ff;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            letter-spacing: 2px;
+        }
+
+        .nav a {
+            color: #00d4ff;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav a:hover {
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.6);
+        }
+
+        .hero {
+            max-width: 1200px;
+            margin: 100px auto 60px;
+            padding: 0 40px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .hero .highlight {
+            color: #00d4ff;
+            font-weight: 600;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+        }
+
+        .hero p {
+            font-size: 16px;
+            color: #a0b0c0;
+            line-height: 1.8;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .divider {
+            width: 100px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            margin: 40px auto;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        .section {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 40px;
+        }
+
+        .section-title {
+            font-size: 40px;
+            font-weight: 300;
+            margin-bottom: 60px;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+
+        .section-title .highlight {
+            color: #00d4ff;
+            font-weight: 600;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+        }
+
+        /* Value Proposition */
+        .value-prop {
+            background: linear-gradient(135deg, rgba(0, 30, 60, 0.4), rgba(0, 50, 100, 0.2));
+            border: 1px solid rgba(0, 200, 255, 0.15);
+            border-radius: 8px;
+            padding: 50px 40px;
+            margin-bottom: 80px;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.1);
+        }
+
+        .value-prop h3 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #e0e8f0;
+            margin-bottom: 24px;
+        }
+
+        .value-prop p {
+            font-size: 14px;
+            color: #a0b0c0;
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .value-prop ul {
+            list-style: none;
+            columns: 2;
+            gap: 30px;
+        }
+
+        .value-prop li {
+            font-size: 13px;
+            color: #a0b0c0;
+            margin-bottom: 12px;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .value-prop li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #00d4ff;
+            font-weight: 700;
+        }
+
+        /* Service Tiers */
+        .tiers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .tier {
+            background: linear-gradient(135deg, rgba(0, 30, 60, 0.5), rgba(0, 50, 100, 0.3));
+            border: 1px solid rgba(0, 200, 255, 0.2);
+            border-radius: 12px;
+            padding: 50px 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tier::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.1), transparent);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .tier:hover {
+            border-color: rgba(0, 212, 255, 0.6);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .tier:hover::before {
+            top: 0;
+            right: 0;
+        }
+
+        .tier-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .tier-name {
+            font-size: 22px;
+            font-weight: 600;
+            color: #e0e8f0;
+            margin-bottom: 16px;
+        }
+
+        .tier-price {
+            font-size: 48px;
+            font-weight: 700;
+            color: #00d4ff;
+            margin-bottom: 8px;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+        }
+
+        .tier-price-note {
+            font-size: 11px;
+            color: #708090;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+        }
+
+        .tier-description {
+            font-size: 14px;
+            color: #a0b0c0;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .tier-features {
+            text-align: left;
+            margin-bottom: 40px;
+        }
+
+        .tier-features li {
+            list-style: none;
+            font-size: 13px;
+            color: #a0b0c0;
+            margin-bottom: 14px;
+            padding-left: 28px;
+            position: relative;
+        }
+
+        .tier-features li:before {
+            content: "◆";
+            position: absolute;
+            left: 0;
+            color: #00d4ff;
+            font-size: 10px;
+        }
+
+        .tier-cta {
+            background: linear-gradient(135deg, #00d4ff 0%, #00a8cc 100%);
+            color: #0a1628;
+            padding: 14px 40px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            display: inline-block;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+        }
+
+        .tier-cta:hover {
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.8);
+            transform: scale(1.05);
+        }
+
+        /* Process */
+        .process {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .process-step {
+            text-align: center;
+            padding: 40px 25px;
+            background: linear-gradient(135deg, rgba(0, 30, 60, 0.3), rgba(0, 50, 100, 0.2));
+            border: 1px solid rgba(0, 200, 255, 0.15);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .process-step:hover {
+            border-color: rgba(0, 212, 255, 0.5);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.15);
+        }
+
+        .process-number {
+            font-size: 40px;
+            font-weight: 700;
+            color: #00d4ff;
+            margin-bottom: 12px;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+        }
+
+        .process-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #e0e8f0;
+            margin-bottom: 12px;
+        }
+
+        .process-description {
+            font-size: 12px;
+            color: #a0b0c0;
+            line-height: 1.6;
+        }
+
+        /* CTA */
+        .cta-section {
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .cta-button-large {
+            display: inline-block;
+            background: linear-gradient(135deg, #00d4ff 0%, #00a8cc 100%);
+            color: #0a1628;
+            padding: 20px 70px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 15px;
+            letter-spacing: 1.5px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+        }
+
+        .cta-button-large:hover {
+            box-shadow: 0 0 50px rgba(0, 212, 255, 0.8);
+            transform: scale(1.08);
+        }
+
+        footer {
+            background-color: rgba(10, 22, 40, 0.6);
+            padding: 50px 40px;
+            text-align: center;
+            border-top: 1px solid rgba(0, 200, 255, 0.1);
+            margin-top: 100px;
+        }
+
+        footer p {
+            font-size: 12px;
+            color: #708090;
+            line-height: 1.8;
+        }
+
+        footer a {
+            color: #00d4ff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        footer a:hover {
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.6);
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .hero {
+                padding: 0 24px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .section {
+                padding: 0 24px;
+            }
+
+            .tiers, .process {
+                grid-template-columns: 1fr;
+            }
+
+            .value-prop ul {
+                columns: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">EVE</div>
+        <nav class="nav">
+            <a href="homepage.html">← Back to Home</a>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>Forensic <span class="highlight">Case Assessment</span></h1>
+        <p>Deep investigation of criminal cases using the EVE framework. We examine evidence integrity, chain of custody, investigator methodology, and litigation defensibility.</p>
+    </div>
+
+    <div class="section">
+        <div class="divider"></div>
+
+        <div class="value-prop">
+            <h3>Why EVE for Case Assessment</h3>
+            <p>Criminal cases live or die on evidence credibility and procedural integrity. We bring systematic rigor to case evaluation:</p>
+            <ul>
+                <li>Evidence chain validation</li>
+                <li>Procedural gap identification</li>
+                <li>Investigator methodology review</li>
+                <li>Litigation defensibility analysis</li>
+                <li>Documentation of all findings</li>
+                <li>Expert-signed assessment</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">Service <span class="highlight">Options</span></h2>
+
+        <div class="tiers">
+            <div class="tier">
+                <div class="tier-inner">
+                    <div class="tier-name">Case Review</div>
+                    <div class="tier-price">$4K</div>
+                    <div class="tier-price-note">Flat fee</div>
+                    <p class="tier-description">Focused assessment of specific procedural or evidentiary concerns.</p>
+                    <ul class="tier-features">
+                        <li>Case document review</li>
+                        <li>Gap identification</li>
+                        <li>Written assessment</li>
+                        <li>Single officer review</li>
+                    </ul>
+                    <a href="intake-form.html" class="tier-cta">Start Intake</a>
+                </div>
+            </div>
+
+            <div class="tier">
+                <div class="tier-inner">
+                    <div class="tier-name">Full Assessment</div>
+                    <div class="tier-price">$12K</div>
+                    <div class="tier-price-note">Flat fee</div>
+                    <p class="tier-description">Comprehensive investigation of case integrity, chain of custody, and investigator decisions.</p>
+                    <ul class="tier-features">
+                        <li>Complete case audit</li>
+                        <li>Interview synthesis</li>
+                        <li>Evidence mapping</li>
+                        <li>Defensibility analysis</li>
+                        <li>Detailed findings report</li>
+                        <li>Multi-officer review</li>
+                    </ul>
+                    <a href="intake-form.html" class="tier-cta">Start Intake</a>
+                </div>
+            </div>
+
+            <div class="tier">
+                <div class="tier-inner">
+                    <div class="tier-name">Ongoing Retainer</div>
+                    <div class="tier-price">$6.8K</div>
+                    <div class="tier-price-note">Monthly</div>
+                    <p class="tier-description">Rolling access to case assessment, investigator consultation, and procedural guidance.</p>
+                    <ul class="tier-features">
+                        <li>Unlimited case intake</li>
+                        <li>Priority assessment</li>
+                        <li>Investigator consultation</li>
+                        <li>Procedural guidance</li>
+                        <li>Dedicated officer liaison</li>
+                        <li>Quarterly briefings</li>
+                    </ul>
+                    <a href="intake-form.html" class="tier-cta">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">Our <span class="highlight">Process</span></h2>
+
+        <div class="process">
+            <div class="process-step">
+                <div class="process-number">1</div>
+                <div class="process-title">Intake</div>
+                <div class="process-description">Case submission and scoping call. We establish scope, timeline, and defensibility priorities.</div>
+            </div>
+
+            <div class="process-step">
+                <div class="process-number">2</div>
+                <div class="process-title">Analysis</div>
+                <div class="process-description">Systematic forensic review. Document chain, interview consistency, evidence integrity, and investigator methodology.</div>
+            </div>
+
+            <div class="process-step">
+                <div class="process-number">3</div>
+                <div class="process-title">Mid-Point Check</div>
+                <div class="process-description">Early findings and emerging gaps. Direction clarification before final review.</div>
+            </div>
+
+            <div class="process-step">
+                <div class="process-number">4</div>
+                <div class="process-title">Delivery</div>
+                <div class="process-description">Signed assessment. Defensibility summary, gap analysis, and litigation readiness recommendation.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" id="contact">
+        <div class="cta-section">
+            <p style="font-size: 16px; color: #a0b0c0; margin-bottom: 40px;">Ready to submit a case? We'll schedule a scoping call within 48 hours.</p>
+            <a href="intake-form.html" class="cta-button-large">Start Intake Form</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>EVE Intelligence Inc. | Forensic Case Assessment</p>
+        <p style="margin-top: 12px; font-size: 11px;">Assessment and analysis only. Not legal advice. Findings subject to professional limitation and scope of engagement.</p>
+        <p style="margin-top: 20px;"><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+    </footer>
+</body>
+</html>

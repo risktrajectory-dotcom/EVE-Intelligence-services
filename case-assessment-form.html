@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EVE Investigative Services — Case Assessment Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #0a1628 0%, #0d1f3c 50%, #0a1628 100%);
+            color: #e0e8f0;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        header {
+            background-color: rgba(10, 22, 40, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 200, 255, 0.2);
+            padding: 24px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            margin: -40px -20px 40px -20px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #00d4ff;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            letter-spacing: 2px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .form-title {
+            font-size: 32px;
+            font-weight: 300;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .form-title .highlight {
+            color: #00d4ff;
+            font-weight: 600;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+        }
+
+        .classification-banner {
+            background: rgba(212, 40, 40, 0.15);
+            border: 1px solid rgba(212, 40, 40, 0.3);
+            padding: 12px 20px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #ff6b6b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        form {
+            background: linear-gradient(135deg, rgba(0, 30, 60, 0.3), rgba(0, 50, 100, 0.2));
+            border: 1px solid rgba(0, 200, 255, 0.15);
+            border-radius: 8px;
+            padding: 50px;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.1), inset 0 0 30px rgba(0, 212, 255, 0.05);
+        }
+
+        .form-section {
+            margin-bottom: 50px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(0, 200, 255, 0.2);
+        }
+
+        .section-letter {
+            font-size: 24px;
+            font-weight: 700;
+            color: #00d4ff;
+            margin-right: 16px;
+            text-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
+            min-width: 40px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #e0e8f0;
+            letter-spacing: 0.5px;
+        }
+
+        .field-group {
+            margin-bottom: 20px;
+        }
+
+        .field-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: #a0b0c0;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px 14px;
+            background-color: rgba(10, 22, 40, 0.6);
+            border: 1px solid rgba(0, 200, 255, 0.2);
+            border-radius: 4px;
+            color: #e0e8f0;
+            font-family: inherit;
+            font-size: 13px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: rgba(0, 212, 255, 0.6);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.15);
+            background-color: rgba(10, 22, 40, 0.8);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 90px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 14px;
+            margin: 12px 0;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+        }
+
+        input[type="checkbox"],
+        input[type="radio"] {
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+            accent-color: #00d4ff;
+            cursor: pointer;
+        }
+
+        .checkbox-item label {
+            margin: 0;
+            text-transform: none;
+            letter-spacing: normal;
+            font-weight: normal;
+            font-size: 13px;
+            color: #a0b0c0;
+            cursor: pointer;
+        }
+
+        .note {
+            font-size: 11px;
+            color: #708090;
+            margin-top: 6px;
+            font-style: italic;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 16px;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(0, 200, 255, 0.2);
+        }
+
+        button {
+            flex: 1;
+            padding: 14px 32px;
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #00d4ff 0%, #00a8cc 100%);
+            color: #0a1628;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+        }
+
+        .btn-submit:hover {
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.7);
+            transform: scale(1.02);
+        }
+
+        .btn-reset {
+            background-color: rgba(0, 200, 255, 0.1);
+            color: #a0b0c0;
+            border: 1px solid rgba(0, 200, 255, 0.3);
+        }
+
+        .btn-reset:hover {
+            background-color: rgba(0, 200, 255, 0.15);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            border-top: 1px solid rgba(0, 200, 255, 0.1);
+            color: #708090;
+            font-size: 10px;
+        }
+
+        @media (max-width: 768px) {
+            form {
+                padding: 30px;
+            }
+
+            .field-row {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .form-title {
+                font-size: 24px;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">EVE</div>
+    </header>
+
+    <div class="container">
+        <div class="form-header">
+            <h1 class="form-title">Case <span class="highlight">Assessment Form</span></h1>
+            <p style="font-size: 13px; color: #a0b0c0; margin-bottom: 20px;">Officer Interview — Post-Scoping Call Detailed Intake</p>
+            <div class="classification-banner">CONFIDENTIAL | Assessment Only | Litigation Support</div>
+        </div>
+
+        <form id="assessmentForm">
+            <!-- SECTION A: CASE REGISTRATION -->
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-letter">A</div>
+                    <div class="section-title">Case Registration</div>
+                </div>
+
+                <div class="field-row">
+                    <div class="field-group">
+                        <label>Case Designator</label>
+                        <input type="text" name="caseDesignator" placeholder="e.g., CASE-2026-001">
+                    </div>
+                    <div class="field-group">
+                        <label>Date/Time of Intake Call</label>
+                        <input type="date" name="intakeDate">
+                    </div>
+                </div>
+
+                <div class="field-row">
+                    <div class="field-group">
+                        <label>Officer Name</label>
+                        <input type="text" name="officerName">
+                    </div>
+                    <div class="field-group">
+                        <label>Client Organization</label>
+                        <input type="text" name="clientOrg">
+                    </div>
+                </div>
+
+                <div class="field-row">
+                    <div class="field-group">
+                        <label>Client Contact Name</label>
+                        <input type="text" name="contactName">
+                    </div>
+                    <div class="field-group">
+                        <label>Client Secure Contact</label>
+                        <input type="tel" name="contactPhone">
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION B: CASE SUBJECT & BACKGROUND -->
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-letter">B</div>
+                    <div class="section-title">Case Subject & Jurisdiction</div>
+                </div>
+
+                <div class="field-group">
+                    <label>Case Title</label>
+                    <input type="text" name="caseTitle">
+                </div>
+
+                <div class="field-row">
+                    <div class="field-group">
+                        <label>Primary Jurisdiction</label>
+                        <input type="text" name="jurisdiction">
+                    </div>
+                    <div class="field-group">
+                        <label>Case Type</label>
+                        <input type="text" name="caseType" placeholder="Criminal, Civil, Corporate, etc.">
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <label>Case Background (detailed overview)</label>
+                    <textarea name="caseBackground" placeholder="Full case summary, parties involved, context, current status..."></textarea>
+                </div>
+            </div>
+
+            <!-- SECTION C: INCIDENT TIMELINE & CIRCUMSTANCES -->
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-letter">C</div>
+                    <div class="section-title">Incident Timeline & Circumstances</div>
+                </div>
+
+                <div class="field-row">
+                    <div class="field-group">
+                        <label>Incident Start Date</label>
+                        <input type="date" name="incidentStart">
+                    </div>
+                    <div class="field-group">
+                        <label>Incident End Date / Discovery Date</label>
+                        <input type="date" name="incidentEnd">
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <label>Detailed Incident Description (timeline of events)</label>
+                    <textarea name="incidentDetails" placeholder="Chronological account of what occurred, who discovered it, circumstances..."></textarea>
+                </div>
+
+                <div class="field-group">
+                    <label>Number of Witnesses / Involved Parties</label>
+                    <input type="text" name="witnessCount">
+                </div>
+
+                <div class="field-group">
+                    <label>Law Enforcement Involvement</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="radio" id="le-yes" name="leInvolved" value="yes">
+                            <label for="le-yes">Yes</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="radio" id="le-no" name="leInvolved" value="no">
+                            <label for="le-no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <label>LE Case Number / Reference</label>
+                    <input type="text" name="leCase">
+                </div>
+            </div>
+
+            <!-- SECTION D: ASSESSMENT SCOPE & CONCERNS -->
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-letter">D</div>
+                    <div class="section-title">Assessment Scope & Procedural Concerns</div>
+                </div>
+
+                <div class="field-group">
+                    <label>Specific Areas to Examine</label>
+                    <textarea name="assessmentScope" placeholder="What procedural gaps, evidence handling issues, or investigator decisions are being assessed?"></textarea>
+                </div>
+
+                <div class="field-group">
+                    <label>Evidence Chain & Custody Concerns</label>
+                    <textarea name="evidenceConcerns" placeholder="Details on any gaps in chain of custody, evidence handling, documentation..."></textarea>
+                </div>
+
+                <div class="field-group">
+                    <label>Investigator Competency / Procedural Questions</label>
+                    <textarea name="investigatorConcerns" placeholder="Specific questions about investigator methodology, decisions, or competency..."></textarea>
+                </div>
+
+                <div class="field-group">
+                    <label>Other Procedural or Technical Gaps</label>
+                    <textarea name="otherConcerns" placeholder="Any other areas of concern..."></textarea>
+                </div>
+            </div>
+
+            <!-- SECTION E: EVIDENCE & DOCUMENTATION -->
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-letter">E</div>
+                    <div class="section-title">Evidence & Documentation Inventory</div>
+                </div>
+
+                <label style="display: block; margin-bottom: 12px;">Materials Being Provided (check all):</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="statements" name="materials" value="statements">
+                        <label for="statements">Statements</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="interviews" name="materials" value="interviews">
+                        <label for="interviews">Interviews</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="reports" name="materials" value="reports">
+                        <label for="reports">Reports</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="evidence" name="materials" value="evidence">
+                        <label for="evidence">Evidence Inventory</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="forensic" name="materials" value="forensic">
+                        <label for="forensic">Forensic Results</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="photos" name="materials" value="photos">
+                        <label for="photos">Photos/Video/Audio</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="legal" name="materials" value="legal">
+                        <label for="legal">Legal Documents</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="other" name="materials" value="other">
+                        <label for="other">Other</label>
+                    </div>
+                </div>
+
+                <div class="field-group" style="margin-top: 20px;">
+                    <label>Documentation Delivery Method & Timeline</label>
+                    <textarea name="docDelivery" placeholder="How materials will be provided (email, secure portal, physical, etc.) and timeline..."></textarea>
+                </div>
+            </div>
+
+            <!-- SECTION F: STAKEHOLDERS & COORDINATION -->
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-letter">F</div>
+                    <div class="section-title">Stakeholders & Coordination</div>
+                </div>
+
+                <div class="field-group">
+                    <label>Other Parties (counsel, LE, insurance, employer, etc.)</label>
+                    <textarea name="stakeholders" placeholder="List parties, roles, contact info, any coordination requirements..."></textarea>
+                </div>
+
+                <div class="field-group">
+                    <label>Confidentiality & Access Restrictions</label>
+                    <textarea name="restrictions" placeholder="Any restrictions on who can access findings, communications restrictions, etc."></textarea>
+                </div>
+
+                <div class="field-group">
+                    <label>LE Coordination Authorization</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="radio" id="le-auth-yes" name="leAuth" value="yes">
+                            <label for="le-auth-yes">Authorized</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="radio" id="le-auth-no" name="leAuth" value="no">
+                            <label for="le-auth-no">Not Authorized</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION G: ASSESSMENT CONSTRAINTS & DELIVERY -->
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-letter">G</div>
+                    <div class="section-title">Assessment Constraints & Deliverables</div>
+                </div>
+
+                <div class="field-group">
+                    <label>Service Tier Confirmed</label>
+                    <select name="serviceTier">
+                        <option value="">Select</option>
+                        <option value="case-review">Case Review ($4K)</option>
+                        <option value="full-assessment">Full Assessment ($12K)</option>
+                        <option value="retainer">Retainer</option>
+                    </select>
+                </div>
+
+                <div class="field-group">
+                    <label>Delivery Timeline Confirmed</label>
+                    <select name="timeline">
+                        <option value="">Select</option>
+                        <option value="urgent">Urgent (2 weeks)</option>
+                        <option value="standard">Standard (4-6 weeks)</option>
+                        <option value="flexible">Flexible (8+ weeks)</option>
+                    </select>
+                </div>
+
+                <div class="field-group">
+                    <label>Deliverable Format</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="pdf" name="format" value="pdf">
+                            <label for="pdf">PDF Report</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="brief" name="format" value="brief">
+                            <label for="brief">Executive Brief</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="detailed" name="format" value="detailed">
+                            <label for="detailed">Detailed Analysis</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <label>Officer Assessment Notes & Preliminary Findings</label>
+                    <textarea name="officerNotes" placeholder="Officer's initial observations from scoping call, flagged concerns, next steps..."></textarea>
+                </div>
+            </div>
+
+            <!-- FORM ACTIONS -->
+            <div class="form-actions">
+                <button type="submit" class="btn-submit">Save Assessment</button>
+                <button type="reset" class="btn-reset">Clear Form</button>
+            </div>
+        </form>
+    </div>
+
+    <footer>
+        <p>EVE Investigative Services | Case Assessment Form | Confidential</p>
+        <p style="margin-top: 8px;">For officer use during and after scoping call. Assessment analysis only. Not legal advice.</p>
+    </footer>
+
+    <script>
+        const form = document.getElementById('assessmentForm');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(form);
+            console.log('Assessment submitted:', Object.fromEntries(formData));
+            alert('Assessment form saved successfully.');
+        });
+    </script>
+</body>
+</html>
